@@ -17,3 +17,10 @@ All results are floats. The scales here are real-valued, so compare with a toler
 The awkward edge: unit strings are case-insensitive for distance and weight but case-sensitive for temperature, because ``m`` means metres and ``M`` is not a unit. Use ``"C"``, ``"F"``, ``"K"`` or the spelled-out forms ``celsius``, ``fahrenheit``, ``kelvin`` to avoid ambiguity.
 
 Cross-domain conversion (e.g. kilograms to metres) raises ``UnitError``, a subclass of ``ValueError``.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
